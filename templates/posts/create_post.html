@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label for="id_user">Имя пользовател</label>
+        <input type="text" name="user" id="id_user" placeholder="Введите ваше имя" required>
+    </div>
+    <div>
+        <label for="id_title">Заголовок поста</label>
+        <input type="text" name="title" id="id_title" placeholder="Введите заголовок" required>
+    </div>
+    <div>
+        <label for="id_title">Контент поста</label>
+        <input type="text" name="content" id="id_content" placeholder="Введите котент" required>
+    </div>
+    <div>
+        {% if user.image %}
+            <img src="{{ user.image.url }}"
+                alt="Аватар пользователя" class="img-fluid rounded-circle"
+                style="max-width: 150px;">
+        {% endif %}
+            <input type="file" class="form-control mt-3" id="id_image"
+            name='image'
+            accept="image/*">
+            {% if form.image.errors %}
+            <div class="alert alert-danger alert-dismissible fade show">{{form.image.errors}}</div>
+        {% endif %}        
+    </div>
+    
+    
+    <button type="submit">Добавить</button>
+    
+</form>
+{% endblock content %}

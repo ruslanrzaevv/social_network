@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for post in posts %}
+    <p>{{ post.user.username }}</p>
+    <p>{{post.title}}</p>
+    <p>{{post.content}}</p>
+    {% if post.image %}
+        <img id="image" src="{{ post.image.url }}">
+    {% else %}
+        <p>Изображение отсутствует</p>
+    {% endif %}    
+    <p>{{post.created_at}}</p>
+{% endfor %}
+
+{% endblock  %}
