@@ -13,13 +13,16 @@ class UserLoginView(View):
         return render(request, 'users/login.html', {'form':form})
     
     def post(self, request):
-        form = UserLoginForm(request.POST)
+        form = UserLoginForm(request, data=request.POST)
         if form.is_valid():
-            username = request.POST('username')
-            password = request.POST('password')
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
 
             user = auth.authenticate(username=username, password=password)   
             if user:
                 auth.login(request, user)
                 return redirect('admin')
+            
+        return render(request, 'users/login.html', {'form':form})
+
 

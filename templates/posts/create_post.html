@@ -1,36 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form method="post">
+<form method="post" enctype="multipart/form-data" class="form-container">
     {% csrf_token %}
-    <div>
-        <label for="id_user">Имя пользовател</label>
-        <input type="text" name="user" id="id_user" placeholder="Введите ваше имя" required>
+    <div class="form-group">
+        <label for="id_user">Имя пользователя</label>
+        <input type="text" name="user" id="id_user" placeholder="Введите ваше имя" required class="form-control">
     </div>
-    <div>
+    <div class="form-group">
         <label for="id_title">Заголовок поста</label>
-        <input type="text" name="title" id="id_title" placeholder="Введите заголовок" required>
+        <input type="text" name="title" id="id_title" placeholder="Введите заголовок" required class="form-control">
     </div>
-    <div>
-        <label for="id_title">Контент поста</label>
-        <input type="text" name="content" id="id_content" placeholder="Введите котент" required>
+    <div class="form-group">
+        <label for="id_content">Контент поста</label>
+        <textarea name="content" id="id_content" placeholder="Введите контент" required class="form-control"></textarea>
     </div>
-    <div>
+    <div class="form-group">
         {% if user.image %}
-            <img src="{{ user.image.url }}"
-                alt="Аватар пользователя" class="img-fluid rounded-circle"
-                style="max-width: 150px;">
+            <img src="{{ user.image.url }}" alt="Аватар пользователя" class="user-avatar">
         {% endif %}
-            <input type="file" class="form-control mt-3" id="id_image"
-            name='image'
-            accept="image/*">
-            {% if form.image.errors %}
-            <div class="alert alert-danger alert-dismissible fade show">{{form.image.errors}}</div>
-        {% endif %}        
+        <input type="file" class="form-control-file mt-3" id="id_image" name='image' accept="image/*">
+        {% if form.image.errors %}
+        <div class="alert alert-danger mt-2">{{ form.image.errors }}</div>
+        {% endif %}
     </div>
-    
-    
-    <button type="submit">Добавить</button>
-    
+    <button type="submit" class="btn-submit">Добавить</button>
 </form>
 {% endblock content %}

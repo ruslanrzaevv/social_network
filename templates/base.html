@@ -1,26 +1,58 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social Network</title>
-    <link rel="stylesheet" href="styles.css">
+    {{ form.media }}
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
+    {% block css %}
+    {% endblock  %}
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Friends</a></li>
-                <li><a href="#">Settings</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <a href="{% url "create_post" %}">Создать пост</a>
+   
+
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header_inner">
+                <div class="navv" id="navv">
+                    <img id="icon" class="icon" src="https://www.svgrepo.com/show/506800/burger-menu.svg" alt="Menu"> 
+                    {% if request.user.is_authenticated %}
+                    <div class="navv_inner" id="navv_inner">
+                        <a class="navv__link" href="{% url 'index' %}">Home</a>
+                        <a class="navv__link" href="{% url 'index' %}">Friends</a>
+                        <a class="navv__link" href="#">Settings</a>
+                        <a class="navv__link" href="#">Profile</a>
+                          
+                    </div>     
+                    {% endif %}
+                </div>
+                <a class="header__logo" href="{% url 'index' %}">Chetam</a>
+                <nav class="nav">
+                    
+                    {% if request.user.is_authenticated %}
+                    <a class="nav__link" href="">
+                        <img class="profileimg" src="/media/users_images/profile.webp" alt="">
+                    </a> |
+                    <a class="nav__link" href="#">Logout</a>
+                    {% else %}
+                    <a class="nav__link" href="#">Log in</a>
+                    <a class="nav__link" href="#">Sign in</a>
+                    {% endif %}
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+
+    <a href="{% url 'create_post' %}">Создать пост</a>
 
     {% block content %}{% endblock content %}
+
     
+    <script src="{% static 'js/app.js' %}"></script>
+
 </body>
 </html>
