@@ -1,5 +1,9 @@
 from django import forms
+
+
 from posts.models import Post
+from posts.models import Comment
+
 
 class UserPostForm(forms.ModelForm):
     class Meta:
@@ -17,4 +21,9 @@ class UserPostForm(forms.ModelForm):
         image = forms.ImageField(required=False)
 
 
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
 

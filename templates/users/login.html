@@ -1,22 +1,32 @@
 {% extends "base.html" %}
 
-<form style="margin-top: 100px;" action='{% url "login" %}' method='post'>
-    {% csrf_token %}
-    <!-- <div> dsfgsfdg
-        <label for="id_username" >Имя пользователя</label>
-        <input type="text"   name='username' id="id_username" placeholder="Введите ваше имя пользователя" required>
-    </div>
-    <div >
-        <label for="id_password" >Пароль</label>
-        <input type="password"  id="id_password" name='password' placeholder="Введите ваш пароль" required>
-    </div> 
- -->
 
-    {{form.as_p}}
 
-    <button type="submit">Войти</button>
-</form>
 
+{% block content %}
+<div class="login-container">
+    <form action='{% url "login" %}' method='post'>
+        {% csrf_token %}
+        <h2 class="login-title">Вход</h2>
+        <div class="form-group">
+            <label for="id_username">Имя пользователя</label>
+            <input type="text" name='username' id="id_username" placeholder="Введите ваше имя пользователя" required>
+        </div>
+        <div class="form-group">
+            <label for="id_password">Пароль</label>
+            <input type="password" id="id_password" name='password' placeholder="Введите ваш пароль" required>
+        </div>
+        <button type="submit" class="submit-button">Войти</button>
+    </form>
+</div>
+
+
+{% endblock %}
 
 
 {% block css %}{% endblock %}
+
+
+
+
+

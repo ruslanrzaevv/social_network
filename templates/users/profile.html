@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% comment %} 
+<form method="post" action="{% url "profile" %}">
+    <h1>Профиль пользователя: {{ profile_user.username }}</h1>
+
+    <img src="{{ profile_user.image.url }}" alt="{{ profile_user.username }}" class="profile-image">
+
+    <p>Email: {{ profile_user.email }}</p>
+    <p>Телефон: {{ profile_user.phone_number }}</p>
+
+    <h2>Друзья:</h2>
+    <ul>
+        {% for friend in friends %}
+            <li>{{ friend.username }}</li>
+        {% empty %}
+            <li>У пользователя пока нет друзей.</li>
+        {% endfor %}
+    </ul>
+
+    {% if received_requests %}
+        <h2>Запросы в друзья:</h2>
+        <ul>
+            {% for request in received_requests %}
+                <li>{{ request.from_user.username }} хочет добавить вас в друзья</li>
+                <form method="post" action="{% url 'accept_friend_request' request.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Принять</button>
+                </form>
+                <form method="post" action="{% url 'reject_friend_request' request.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Отклонить</button>
+                </form>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+</form> {% endcomment %}
+
+
+
+{% block content %}
+{% for post in posts %}
+    <div class="post-card">
+        <div class="post-header">
+            <p class="post-username">{{ post.user.username }}</p>
+            <p class="post-date">{{ post.created_at }}</p>
+        </div>
+        <h2 class="post-title">{{ post.title }}</h2>
+        <p class="post-content">{{ post.content }}</p>
+        {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+        {% endif %}     
+
+    </div>
+    {% endfor %}
+    
+
+    <h1>{{ profile.user.username }}'s Profile</h1>
+  <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+  <p><strong>Bio:</strong> {{ profile.bio }}</p>
+  <p><strong>Location:</strong> {{ profile.location }}</p>
+  <p><strong>Birth Date:</strong> {{ profile.birth_date }}</p>
+  <a href="{% url 'edit_profile' %}">Edit Profile</a>
+{% endblock %}

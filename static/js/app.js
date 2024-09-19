@@ -4,15 +4,7 @@ $(document).ready(function() {
     let intro = $('#intro');
     let introH = intro.innerHeight();
 
-    $(window).on('scroll load', function() {
-        scrollPos = $(this).scrollTop();
-        if (scrollPos > introH) {
-            header.addClass('fixed');
-        } else {
-            header.removeClass('fixed');
-        }
-    });
-
+   
     $('#icon').on('click', function(event) {
         event.preventDefault();
         $('#navv_inner').toggleClass('active');
