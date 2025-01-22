@@ -23,6 +23,10 @@
         {% if form.image.errors %}
         <div class="alert alert-danger mt-2">{{ form.image.errors }}</div>
         {% endif %}
+
+        
+        <input type="file" class="form-control-file mt-3" id="id_video" name='video' accept="video/*">
+
     </div>
     <button type="submit" class="btn-submit">Добавить</button>
 

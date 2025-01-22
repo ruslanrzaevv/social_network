@@ -9,35 +9,35 @@
     {{ form.media }}
     <link rel="stylesheet" href="{% static '/css/style.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    {% block css %}
-    {% endblock  %}
+    
 </head>
 <body>
-
-   
-
     <header class="header" id="header">
         <div class="container">
             <div class="header_inner">
                 <div class="navv" id="navv">
-                    <img id="icon" class="icon" src="https://www.svgrepo.com/show/506800/burger-menu.svg" alt="Menu"> 
+                    <img id="icon" class="icon" src="{% static "icon_hmr.png" %}" alt="Menu"> 
                     {% if request.user.is_authenticated %}
                     <div class="navv_inner" id="navv_inner">
-                        <a class="navv__link" href="{% url "profile" %}">{{ request.user.username }}</a>
-                        <a class="navv__link" href="{% url "create_post" %}">Создать пост</a>
+                        {% if user.slug %}
+                        <a class="navv__link" href="{% url 'profile' user.slug %}">{{user.username}}</a>
+                    {% else %}
+                        <span>Профиль недоступен</span>
+                    {% endif %}                       
+                     <a class="navv__link" href="{% url "create_post" %}">Создать пост</a>
                         <a class="navv__link" href="{% url 'index' %}">Home</a>
                         <a class="navv__link" href="{% url 'index' %}">Friends</a>
                         <a class="navv__link" href="#">Settings</a>
                         <a class="navv__link" href="#">Profile</a>
-
-                          
                     </div>     
                     {% endif %}
                 </div>
                 <a class="header__logo" href="{% url 'index' %}">Chetam</a>
                 <nav class="nav">
-                    
+                    {% include "includes/search.html" %}
+
+
+                {% comment "searchhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh " %}{% endcomment %}
                     {% if request.user.is_authenticated %}
                     <a class="nav__link" href="{% url "logout" %}">Logout</a>
                     {% else %}
@@ -48,13 +48,16 @@
             </div>
         </div>
     </header>
-    
+
 
 
     {% block content %}{% endblock content %}
 
     
     <script src="{% static 'js/app.js' %}"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{% static "js/scripts.js" %}"></script>
 
 </body>
 </html>

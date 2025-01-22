@@ -3,8 +3,16 @@ $(document).ready(function() {
     let scrollPos = $(window).scrollTop();
     let intro = $('#intro');
     let introH = intro.innerHeight();
+    const comment_button = document.getElementById("#comment-btn")
 
-   
+
+    function toggleCommentForm(postId) {
+        const form = document.getElementById(`comment-form-${postId}`);
+        if (form.style.display === "none") {
+            form.style.display = "block";
+        } 
+    }
+
     $('#icon').on('click', function(event) {
         event.preventDefault();
         $('#navv_inner').toggleClass('active');

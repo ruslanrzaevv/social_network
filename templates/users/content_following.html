@@ -1,0 +1,5 @@
+<ul>
+    {% for following in following %}
+        <li>{{ following.following.username }}</li>
+    {% endfor %}
+</ul>

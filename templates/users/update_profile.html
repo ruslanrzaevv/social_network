@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form style="margin-top:200px;" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Сохранить изменении</button>
+</form>
+{% endblock content %}

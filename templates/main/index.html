@@ -1,21 +1,67 @@
 {% extends "base.html" %}
 
-
 {% block content %}
+
+<div class="search-results" style="margin-top:300px">
+    {% if query %}
+        <h2 class="search-title">Результаты поиска для "{{ query }}":</h2>
+        {% if users %}
+            <ul class="user-list">
+                {% for user in users %}
+                    <li class="user-item">
+                        <a href="{% url 'profile' user.slug %}" class="user-link">{{ user.username }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="no-users">Пользователи не найдены</p>
+        {% endif %}
+    {% endif %}
+</div>
+
 <div class="posts-container">
+
     {% for post in posts %}
     <div class="post-card">
         <div class="post-header">
             <p class="post-username">{{ post.user.username }}</p>
             <p class="post-date">{{ post.created_at }}</p>
         </div>
-        <h2 class="post-title">{{ post.title }}</h2>
+        {% if post.slug %}
+        <a href="{% url "post_detail" post.slug %}">{{ post.title }}</a>
+        {% else %}
+        <p>{{post.title}}</p>
+        {% endif %}
         <p class="post-content">{{ post.content }}</p>
         {% if post.image %}
         <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
         {% endif %}
+
+        <div class="reels-container">
+            {% for post in posts %}
+    <div class="reel-item">
+        {% if post.slug %}
+            <a href="{% url 'reels_det' post.slug %}">
+                <video class="reel-video" controls>
+                    <source src="{{ post.video.url }}" type="video/mp4">
+                    Ваш браузер не поддерживает элемент video.
+                </video>
+            </a>
         
-        <!-- Выводим комментарии к посту -->
+        {% endif %}
+    </div>
+{% endfor %}
+        </div>
+    
+    
+
+        <div class="like-section">
+            <a href="{% if post.slug %}{% url 'like' post.slug %}{% endif %}" class="like-button">
+                <img src="/static/like.jpg" alt="" class="like-icon">
+            </a>
+            <span class="like-count">{{ post.likes }}</span>
+        </div>
+        
         <div class="comments-section">
             <h3>Комментарии</h3>
             {% for comment in post.comments.all %}
@@ -25,16 +71,29 @@
             {% endfor %}
         </div>
 
-        <!-- Форма для добавления комментария -->
-        <form method="post" action="{% url 'add_comment' post.id %}" class="comment-form">
+        <img src="/media/comment.png" onclick="toggleCommentForm({{ post.id }})" class="btn btn-secondary" alt="">
+
+
+        <form id="comment-form-{{ post.id }}" method="post" action="{% url 'add_comment' post.id %}" class="comment-form" style="display: none; margin-top: 10px;">
             {% csrf_token %}
             <div class="form-group">
                 {{ form.content }}
             </div>
-            <button type="submit" class="btn btn-primary">Добавить комментарий</button>
+            <button type="submit" class="btn btn-primary">Отправить</button>
         </form>
 
     </div>
     {% endfor %}
+    
 </div>
+
+<script>
+    function toggleCommentForm(postId) {
+        const form = document.getElementById(`comment-form-${postId}`);
+        if (form.style.display === "none") {
+            form.style.display = "block";
+        } 
+    }
+</script>
+
 {% endblock %}

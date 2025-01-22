@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="reel-detail">
+    <video class="reel-video" controls autoplay>
+        <source src="{{ post.video.url }}" type="video/mp4">
+        Ваш браузер не поддерживает элемент video.
+    </video>
+</div>
+{% endblock %}
+
+

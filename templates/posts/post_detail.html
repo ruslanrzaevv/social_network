@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="post-card">
+    <div class="post-header">
+        <p class="post-username">{{ posts.user.username }}</p>
+        <p class="post-date">{{ posts.created_at }}</p>
+    </div>
+    <h2 class="post-title">{{ posts.title }}</h2>
+    <p class="post-content">{{ posts.content }}</p>
+    {% if posts.image %}
+    <img src="{{ posts.image.url }}" alt="{{ posts.title }}" class="post-image">
+    {% endif %}
+    
+    <div class="like-section">
+        <a href="{% if post.slug %}{% url 'like' post.slug %}{% endif %}" class="like-button">
+            <img src="/static/like.jpg" alt="" class="like-icon">
+        </a>
+        <span class="like-count">{{ post.likes }}</span>
+    </div>
+    <div class="likes-section">
+        <p>Количество лайков: {{ posts.likes }}</p>
+    </div>
+
+
+    
+    <div class="comments-section">
+        <h3>Комментарии</h3>
+        {% for comment in posts.comments.all %}
+            <p><strong>{{ comment.user.username }}</strong>: {{ comment.content }}</p>
+        {% empty %}
+            <p>Нет комментариев</p>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock content %}
+
+

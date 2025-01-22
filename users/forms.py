@@ -34,22 +34,20 @@ class UserRegistrationForm(UserCreationForm):
     password2 = forms.CharField(widget=forms.PasswordInput)
 
 
-
-class ProfileForm(UserChangeForm):
+class ProfileForm(forms.ModelForm):
+    
     class Meta:
         model = Profile
         fields = (
-            "user",
-            'bio',
-            "location",
-            "birth_date",
             "image",
-            )
+            'first_name',
+            'last_name',
+            "bio",
+            "location",
+        )
 
-    user = forms.CharField(required=False)
-    bio = forms.CharField()
-    location = forms.CharField()
-    birth_date = forms.DateField()
-    image = forms.ImageField()
+
+
+
 
 

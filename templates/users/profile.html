@@ -1,65 +1,105 @@
 {% extends "base.html" %}
 
-{% comment %} 
-<form method="post" action="{% url "profile" %}">
-    <h1>Профиль пользователя: {{ profile_user.username }}</h1>
+{% block content %}
+<div class="profile-container">
 
-    <img src="{{ profile_user.image.url }}" alt="{{ profile_user.username }}" class="profile-image">
-
-    <p>Email: {{ profile_user.email }}</p>
-    <p>Телефон: {{ profile_user.phone_number }}</p>
-
-    <h2>Друзья:</h2>
-    <ul>
-        {% for friend in friends %}
-            <li>{{ friend.username }}</li>
-        {% empty %}
-            <li>У пользователя пока нет друзей.</li>
+    <div class="profile-header">
+        {% if profile_user.image %}
+        <img src="{{ profile.image.url }}" alt="{{ profile.username }}">
+        {% else %}
+            <img src="/static/default-user.png" alt="{{ profile_user.username }}">
+        {% endif %}
+            
+        <h1>{{ profile_user.username }}</h1>
+        {% if request.user == profile_user %}
+            <a href="{% url 'profile_edit' request.user.slug %}" class="profile-edit-link">Обновить профиль</a>
+        {% endif %}
+    </div>
+    {% for p in profile %}
+        <p class="bio">{{ p.first_name }}s</p>
+        <p class="bio">{{ p.last_name }}</p>
+        <p class="bio">{{ p.location }}</p>
+        <p class="bio">{{ p.bio }}</p>
         {% endfor %}
-    </ul>
-
-    {% if received_requests %}
-        <h2>Запросы в друзья:</h2>
-        <ul>
-            {% for request in received_requests %}
-                <li>{{ request.from_user.username }} хочет добавить вас в друзья</li>
-                <form method="post" action="{% url 'accept_friend_request' request.id %}">
-                    {% csrf_token %}
-                    <button type="submit">Принять</button>
-                </form>
-                <form method="post" action="{% url 'reject_friend_request' request.id %}">
-                    {% csrf_token %}
-                    <button type="submit">Отклонить</button>
-                </form>
-            {% endfor %}
-        </ul>
+    {% if request.user != profile_user %}
+            <div class="profile-actions">
+                {% if follow_status %}
+                <a href="{% url 'follow' profile_user.username 0 %}">Отписаться</a>
+            {% else %}
+                <a href="{% url 'follow' profile_user.username 1 %}">Подписаться</a>
+            {% endif %}
+            
+            </div>
     {% endif %}
 
-</form> {% endcomment %}
-
-
-
-{% block content %}
-{% for post in posts %}
-    <div class="post-card">
-        <div class="post-header">
-            <p class="post-username">{{ post.user.username }}</p>
-            <p class="post-date">{{ post.created_at }}</p>
-        </div>
-        <h2 class="post-title">{{ post.title }}</h2>
-        <p class="post-content">{{ post.content }}</p>
-        {% if post.image %}
-        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
-        {% endif %}     
-
-    </div>
-    {% endfor %}
+    <a href="{% url 'conversation' profile_user.username %}">Сообщение</a>
     
+    <ul class="profile-stats">
+        <li id="posts" data-type="posts" class="profile-tab"><span>{{ count_post }}</span> Посты</li>
+        <li id="followers" data-type="followers" class="profile-tab"><span>{{ followers_count }}</span> Подписчики</li>
+        <li id="follows" data-type="following" class="profile-tab"><span>{{ following_count }}</span> Подписки</li>
+    </ul>
+    
+    <div id="profile-content">
+        <!-- Контент будет динамически загружаться сюда -->
+    </div>
 
-    <h1>{{ profile.user.username }}'s Profile</h1>
-  <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
-  <p><strong>Bio:</strong> {{ profile.bio }}</p>
-  <p><strong>Location:</strong> {{ profile.location }}</p>
-  <p><strong>Birth Date:</strong> {{ profile.birth_date }}</p>
-  <a href="{% url 'edit_profile' %}">Edit Profile</a>
+
+
+    {% comment %} <div id="followers-list" class="modal">
+        <div class="modal-content">
+            <h3>Подписчики</h3>
+            <ul>
+                {% for follower in followers %}
+                <li>
+                    <a href="{% url 'profile' follower.follower.slug %}">
+                        {{ follower.follower.username }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            <button class="close-btn" onclick="closeModal('followers-list')">Закрыть</button>
+        </div>
+    </div> {% endcomment %}
+
+    {% comment %} <div id="following-list" class="modal">
+        <div class="modal-content">
+            <h3>Подписки</h3>
+            <ul>
+                {% for follow in following %}
+                <li>
+                    <a href="{% url 'profile' follow.following.slug %}">
+                        {{ follow.following.username }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            <button class="close-btn" onclick="closeModal('following-list')">Закрыть</button>
+        </div>
+    </div> {% endcomment %}
+
+
+    
+    <div class="posts-container">
+        {% for post in posts %}
+        <div class="post-card">
+            <div class="post-header">
+                <p class="post-username">{{ post.user.username }}</p>
+                <p class="post-date">{{ post.created_at }}</p>
+            </div>
+            {% if post.slug %}
+            <a href="{% url 'post_detail' post.slug %}" class="post-title">{{ post.title }}</a>            
+            {% else %}
+            <p>{{post.title}}</p>
+            {% endif %}           
+            <p class="post-content">{{ post.content }}</p>
+            {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
 {% endblock %}
