@@ -3,16 +3,15 @@ from pathlib import Path
 from datetime import timedelta
 from decouple import Config, Csv
 
-config = Config()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+config = Config()
+SECRET_KEY = os.getenv('SECRET_KEY', 'default-secret-key')
 
-SECRET_KEY = config('SECRET_KEY')
+DEBUG = os.getenv('DEBUG') == '1'  
 
-DEBUG = True
-
-ALLOWED_HOSTS = ['.onrender.com']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 
 
@@ -81,13 +80,14 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'soc_net',
-        'USER': 'ruslan',
-        'PASSWORD': 'root',
-        'HOST': 'db',
-        'PORT': '5432'       
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('HOST'),
+        'PORT': os.getenv('PORT'),
     }
 }
+
 
 
 
@@ -122,7 +122,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
     
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
