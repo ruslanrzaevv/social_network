@@ -1,15 +1,18 @@
-from pathlib import Path
 import os
+from pathlib import Path
 from datetime import timedelta
+from decouple import Config, Csv
+
+config = Config()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = 'django-insecure-+4wey4*_hf$n@h_cfb+-m-eoxev1jkj(6@tkue*#jo4_kjlqrm'
+SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.onrender.com']
 
 
 
@@ -34,6 +37,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -62,6 +66,14 @@ TEMPLATES = [
     },
 ]
 
+
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
 WSGI_APPLICATION = 'app.wsgi.application'
 
 
@@ -71,9 +83,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'soc_net',
         'USER': 'ruslan',
-        'PASSWORD':'root',
-        'HOST': '127.0.0.1',
-        'PORT': 5434
+        'PASSWORD': 'root',
+        'HOST': 'db',
+        'PORT': '5432'       
     }
 }
 
@@ -110,6 +122,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+STATIC_ROOT = 'staticfiles'
 
     
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

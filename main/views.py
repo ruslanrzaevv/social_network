@@ -8,7 +8,7 @@ from posts.forms import CommentForm
 from users.models import User
 from main.mixins import RekomendationMixin
 
-class MainView(View, RekomendationMixin):
+class MainView(View):
     def get(self, request):
         query = request.GET.get('q', '')
         posts = Post.objects.all().order_by('-created_at')
@@ -22,11 +22,11 @@ class MainView(View, RekomendationMixin):
                 Q(last_name__icontains=query)
             )
 
-        rec_posts = self.rekomendation(request.user)
+        # rec_posts = self.rekomendation(request.user)
 
         context = {
             'title': 'Главная страница',
-            'posts': rec_posts,
+            # 'posts': rec_posts,
             'h':posts,
             'form': form,
             'users':users,

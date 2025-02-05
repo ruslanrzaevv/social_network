@@ -3,10 +3,10 @@
 {% block content %}
 <form method="post" enctype="multipart/form-data" class="form-container">
     {% csrf_token %}
-    <div class="form-group">
+    {% comment %} <div class="form-group">
         <label for="id_user">Имя пользователя</label>
         <input type="text" name="user" id="id_user" placeholder="Введите ваше имя" required class="form-control">
-    </div>
+    </div> {% endcomment %}
     <div class="form-group">
         <label for="id_title">Заголовок поста</label>
         <input type="text" name="title" id="id_title" placeholder="Введите заголовок" required class="form-control">

@@ -22,6 +22,7 @@ class UserPostForm(forms.ModelForm):
         image = forms.ImageField(required=False)
         video = forms.FileField(required=False)
 
+
     def clean(self):
         cleaned_data = super().clean()
         video = cleaned_data.get('video')

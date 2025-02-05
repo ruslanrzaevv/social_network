@@ -6,7 +6,7 @@ import uuid
 
 class Post(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, unique=False)
     content = models.TextField()
     slug = models.SlugField(blank=True, unique=True,null=True)
     image = models.ImageField(default='posts.image', upload_to='posts/', blank=True)
@@ -22,6 +22,7 @@ class Post(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
