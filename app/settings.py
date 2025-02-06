@@ -4,6 +4,9 @@ from datetime import timedelta
 from decouple import Config, Csv, RepositoryEnv
 
 
+#hello
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 config = Config(RepositoryEnv(BASE_DIR / ".env"))
@@ -12,7 +15,6 @@ SECRET_KEY = config("SECRET_KEY", default="default-secret-key")
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="", cast=Csv())
-
 
 
 INSTALLED_APPS = [
