@@ -1,17 +1,17 @@
 import os
 from pathlib import Path
 from datetime import timedelta
-from decouple import Config, Csv
+from decouple import Config, Csv, RepositoryEnv
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-config = Config()
-SECRET_KEY = os.getenv('SECRET_KEY', 'default-secret-key')
+config = Config(RepositoryEnv(BASE_DIR / ".env"))
+SECRET_KEY = config("SECRET_KEY", default="default-secret-key")
 
-DEBUG = os.getenv('DEBUG') == '1'  
+DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="", cast=Csv())
 
 
 
@@ -78,13 +78,13 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
     
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB'),
-        'USER': os.getenv('POSTGRES_USER'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-        'HOST': os.getenv('HOST'),
-        'PORT': os.getenv('PORT'),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": config("POSTGRES_DB"),
+        "USER": config("POSTGRES_USER"),
+        "PASSWORD": config("POSTGRES_PASSWORD"),
+        "HOST": config("HOST"),
+        "PORT": config("PORT", cast=int),
     }
 }
 

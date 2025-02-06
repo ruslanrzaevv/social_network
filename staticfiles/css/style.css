@@ -1,0 +1,699 @@
+body {
+    margin: 0;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    max-width: 1170px;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+.header {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #faf9f9;
+    border-bottom: 1px solid #b8b8b8;
+    margin-bottom: 500px;
+}
+
+.header.fixed {    
+    height: auto;
+    position: fixed;
+    box-shadow: none;
+}
+
+.header_inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0; 
+    margin: 0;
+}
+
+.header__logo {
+    font-size: 25px;
+    text-decoration: none;
+    color: #0d485a;
+    transition: opacity .1s linear;
+    margin-right: 1000px;
+
+}
+
+.header__logo:hover {
+    opacity: 1;
+    color: #b8b8b8;
+    transition: opacity .1s linear;
+}
+
+
+.navv {
+    display: flex;
+    align-items: center;
+}
+
+.navv_inner {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #faf9f9;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
+    z-index: 9999;
+    padding-top: 60px;
+}
+
+.navv_inner.active {
+    left: 0;
+}
+
+.navv__link {
+    display: block;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+}
+
+.navv__link:hover {
+    background-color: #f2f2f2;
+}
+
+.icon {
+    cursor: pointer;
+    height: 30px;
+}
+
+
+.posts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    top: 100px;
+}
+
+.post-card {
+    margin-top: 80px;
+    width: 47%;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.post-username {
+    font-weight: bold;
+    color: #333;
+}
+
+.post-date {
+    font-size: 0.9em;
+    color: #999;
+}
+
+.post-title {
+    font-size: 1.5em;
+    margin: 10px 0;
+    color: #333;
+}
+
+.post-content {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #555;
+}
+
+.post-image {
+    width: 100%;
+    height: auto;
+    margin-top: 15px;
+    border-radius: 8px;
+
+}
+
+
+
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 150px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-control, .form-control-file {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-control::placeholder {
+    color: #aaa;
+}
+
+.user-avatar {
+    max-width: 150px;
+    border-radius: 50%;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.btn-submit {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+
+
+
+
+
+/* логиииииииииииииииииииииииинннннн */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+}
+
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+.login-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 30px;
+    background-color: #007bff;
+    color: #ffffff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+
+/* profile.css */
+body {
+    background-color: #f4f4f9;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-container {
+    width: 80%;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 180px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.profile-header h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.profile-header img {
+    width: 100px;
+    height: 100px;
+    /* border-radius: 50%; */
+    object-fit: cover;
+}
+
+.profile-edit-link {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.profile-edit-link:hover {
+    background-color: #0056b3;
+}
+
+.posts-container {
+    margin-top: 20px;
+}
+
+.post-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.post-username {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.post-date {
+    color: #888;
+    font-size: 12px;
+}
+
+.post-title {
+    font-size: 20px;
+    color: #333;
+    margin: 10px 0;
+}
+
+.post-content {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+}
+
+.post-image {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.profile-actions a {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.profile-actions a:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-header img {
+        margin-top: 10px;
+    }
+
+    .post-card {
+        padding: 15px;
+    }
+}
+
+
+/* Стили для списка статистики профиля */
+.profile-stats {
+    list-style: none; /* Убираем стандартные маркеры списка */
+    padding: 0; /* Убираем отступы */
+    display: flex; /* Используем flexbox для горизонтального расположения */
+    justify-content: space-around; /* Равномерное распределение пространства между элементами */
+    margin: 20px 0; /* Отступы сверху и снизу */
+    background-color: #f0f0f0; /* Фоновый цвет списка */
+    border-radius: 5px; /* Закругленные углы */
+    padding: 15px; /* Отступы внутри списка */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Тень для списка */
+}
+
+.profile-stats li {
+    text-align: center; /* Центрируем текст внутри элемента списка */
+    flex: 1; /* Все элементы имеют равную ширину */
+    padding: 10px; /* Отступы внутри элемента списка */
+    transition: background-color 0.3s; /* Плавный переход цвета фона */
+}
+
+.profile-stats li:hover {
+    background-color: #e0e0e0; /* Цвет фона при наведении */
+}
+
+.profile-stats span {
+    font-weight: bold; /* Жирный текст для чисел */
+    font-size: 1.2em; /* Увеличенный размер шрифта */
+    color: #333; /* Цвет текста */
+}
+
+
+
+.like-section {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.like-button {
+    display: flex;
+    align-items: center;
+    text-decoration: none; /* Убираем подчеркивание */
+    margin-right: 10px;
+}
+
+.like-icon {
+    width: 42px; /* Ширина и высота иконки лайка */
+    height: 34px;
+    transition: transform 0.2s; /* Плавный эффект при наведении */
+}
+
+.like-button:hover .like-icon {
+    transform: scale(1.1); /* Увеличение иконки при наведении */
+}
+
+.like-count {
+    font-weight: bold; /* Сделаем количество лайков жирным */
+    color: #555; /* Цвет текста */
+}
+
+
+
+
+
+
+.post-card {
+    position: relative;
+    width: 100%;
+    max-width: 600px; /* Максимальная ширина поста */
+    margin: 20px auto; /* Центрирование постов */
+    border: 1px solid #e0e0e0; /* Легкая граница */
+    border-radius: 10px; /* Скругление углов */
+    overflow: hidden; /* Скрытие переполнения */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Тень */
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* Соотношение сторон 16:9 */
+}
+
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px; /* Скругление углов видео */
+}
+
+.video-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+
+
+.reels-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reels-item {
+    width: 100%;
+    max-width: 600px; /* Ширина рилса */
+    margin: 20px 0; /* Отступы между рилсами */
+    background-color: #000; /* Фоновый цвет */
+    border-radius: 15px; /* Закругление углов */
+    overflow: hidden; /* Обрезаем элементы, выходящие за пределы */
+    position: relative; /* Для позиционирования элементов */
+}
+
+.post-header {
+    padding: 10px;
+    color: #fff; /* Цвет текста */
+}
+
+.reels-video {
+    width: 100%; /* Ширина видео */
+    height: auto; /* Авто высота */
+    display: block; /* Блоковое отображение */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 10px;
+    }
+
+    .header_inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 0;
+    }
+
+    .header__logo {
+        font-size: 20px;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .navv_inner {
+        width: 100%;
+        left: -100%;
+    }
+
+    .navv_inner.active {
+        left: 0;
+    }
+
+    .post-card {
+        width: 90%;
+        margin-top: 40px;
+    }
+
+    .form-container {
+        width: 90%;
+    }
+
+    .profile-container {
+        width: 95%;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-header img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile-stats {
+        flex-direction: column;
+    }
+
+    .profile-stats li {
+        margin-bottom: 10px;
+    }
+}
+
+/* Стили для планшетов */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        max-width: 100%;
+    }
+
+    .post-card {
+        width: 70%;
+    }
+
+    .profile-container {
+        width: 85%;
+    }
+
+    .navv_inner {
+        width: 300px;
+    }
+
+    .navv__link {
+        padding: 12px 15px;
+    }
+}
+
+/* Стили для десктопов */
+@media (min-width: 1025px) {
+    .container {
+        max-width: 1170px;
+    }
+
+    .post-card {
+        width: 50%;
+    }
+
+    .profile-container {
+        width: 80%;
+    }
+
+    .profile-stats li {
+        flex: 1;
+        margin: 0;
+    }
+}
+
+
+
+/* reels.css */
+.reels-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.reel-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.reel-video {
+    width: 100%;
+    height: auto;
+    max-height: 80vh; /* Ограничим высоту */
+    object-fit: cover;
+}
+
+/* Стиль для страницы с одним видео */
+.reel-detail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: black;
+}
+
+.reel-detail .reel-video {
+    max-height: 100%;
+    width: auto;
+}
+
+
+
+
+
+
+
