@@ -2,7 +2,6 @@ FROM python:3.12-slim
 
 WORKDIR /social_net
 
-USER root
 
 
 ENV PYTHONUNBUFFERED 1
